@@ -1,8 +1,12 @@
 package org.example;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.lang.Math.floor;
 
 public class Collection {
     /**
@@ -11,7 +15,18 @@ public class Collection {
      * @return the largest integer
      */
     public static int findMax(List<Integer> numbers) {
-        return -1;
+
+        int max;
+
+        Iterator<Integer> iterator = numbers.iterator();
+        max = iterator.next();
+
+        while(iterator.hasNext()){
+            int num = iterator.next();
+            if(max < num) { max = num; }
+        }
+
+        return max;
     }
 
     /**
@@ -20,7 +35,17 @@ public class Collection {
      * @return the smallest integer
      */
     public static int findMin(List<Integer> numbers) {
-        return -1;
+        int min;
+
+        Iterator<Integer> iterator = numbers.iterator();
+        min = iterator.next();
+
+        while(iterator.hasNext()){
+            int num = iterator.next();
+            if(min > num) { min = num; }
+        }
+
+        return min;
     }
 
     /**
@@ -30,6 +55,9 @@ public class Collection {
      */
     public static void removeLessThan(Set<Integer> numbers, int target) {
 
+        //numbers = numbers.stream().filter(x -> (x >= target)).collect(Collectors.toSet());
+        numbers.removeIf(x -> x < target);
+
     }
 
     /**
@@ -38,7 +66,7 @@ public class Collection {
      * @param target - the threshold by which to remove integers
      */
     public static void removeGreaterThan(Set<Integer> numbers, int target) {
-
+        numbers.removeIf(x -> x > target);
     }
 
     /**
@@ -48,6 +76,10 @@ public class Collection {
      * @param strings - the queue of strings to mutuate
      */
     public static void removeHalf(Queue<String> strings) {
-
+        int qSize = (int)(strings.size()/2);
+        System.out.println(qSize);
+        while(strings.size() > qSize) {
+            strings.poll();
+        }
     }
 }
